@@ -3,6 +3,9 @@ package tk.milkthedev.consolemanager.event;
 public abstract class Event {
     private String name;
 
+    /**
+     * Default constructor
+     */
     public Event() {
     }
 

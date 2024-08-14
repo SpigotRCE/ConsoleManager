@@ -8,23 +8,24 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * EventManager to fire events and handle listeners
+ */
 public class EventManager {
     private final Map<String, ArrayList<EventHandlerEntry>> eventHandlers;
 
+    /**
+     * Default constructor
+     */
     public EventManager() {
         this.eventHandlers = new HashMap<>();
     }
 
-    public void registerEvent(Event event) {
-        // Optionally: Ensure events are managed in some way if needed.
-        System.out.println("Event registered: " + event.getEventName());
-    }
-
-    public void unregisterEvent(Event event) {
-        // Optionally: Remove event from management if needed.
-        System.out.println("Event unregistered: " + event.getEventName());
-    }
-
+    /**
+     * Register a listener for a specific event
+     *
+     * @param listener The listener to register
+     */
     public void registerListener(Listener listener) {
         for (Method method : listener.getClass().getMethods()) {
             EventHandler handler = method.getAnnotation(EventHandler.class);
@@ -33,16 +34,24 @@ public class EventManager {
                     eventHandlers.put(method.getParameterTypes()[0].getSimpleName(), new ArrayList<>());
                 }
                 eventHandlers.get(method.getParameterTypes()[0].getSimpleName()).add(new EventHandlerEntry(listener, method, handler));
-                System.out.println("Listener registered: " + listener.getClass().getSimpleName() + " for method: " + method.getName());
             }
         }
     }
 
+    /**
+     * Unregister a listener for a specific event
+     *
+     * @param listener The listener to unregister
+     */
     public void unregisterListener(Listener listener) {
         eventHandlers.forEach((key, entries) -> entries.removeIf(entry -> entry.listener.equals(listener)));
-        System.out.println("Listener unregistered: " + listener.getClass().getSimpleName());
     }
 
+    /**
+     * Fire an event
+     *
+     * @param event The event to fire
+     */
     public void fireEvent(Event event) {
         ArrayList<EventHandlerEntry> handlers = eventHandlers.get(event.getEventName());
 
@@ -74,6 +83,9 @@ public class EventManager {
         }
     }
 
+    /**
+     * Inner class to store event handlers and their metadata
+     */
     private static class EventHandlerEntry {
         final Listener listener;
         final Method method;
