@@ -2,6 +2,7 @@ package tk.milkthedev;
 
 import tk.milkthedev.consolemanager.api.Manager;
 import tk.milkthedev.consolemanager.event.EventHandler;
+import tk.milkthedev.consolemanager.event.EventPriority;
 import tk.milkthedev.consolemanager.event.listener.Listener;
 import tk.milkthedev.consolemanager.manager.command.Command;
 
@@ -29,9 +30,24 @@ public class Test implements Listener {
         System.out.println("Command preprocess event: " + event.getCommand());
     }
 
-    @EventHandler
-    public void onConsoleInputEvent(tk.milkthedev.consolemanager.event.impl.ConsoleInputEvent event) {
-        System.out.println("Console input event: " + event.getInput());
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onConsoleInputEventNormal(tk.milkthedev.consolemanager.event.impl.ConsoleInputEvent event) {
+        System.out.println("Console input event NORMAL: " + event.getInput());
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onConsoleInputEventLowest(tk.milkthedev.consolemanager.event.impl.ConsoleInputEvent event) {
+        System.out.println("Console input event LOWEST: " + event.getInput());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onConsoleInputEventMonitor(tk.milkthedev.consolemanager.event.impl.ConsoleInputEvent event) {
+        System.out.println("Console input event MONITOR: " + event.getInput());
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onConsoleInputEventHighest(tk.milkthedev.consolemanager.event.impl.ConsoleInputEvent event) {
+        System.out.println("Console input event HIGHEST: " + event.getInput());
     }
 
     public static class TestCommand extends Command {
