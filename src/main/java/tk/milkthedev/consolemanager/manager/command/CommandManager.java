@@ -3,8 +3,6 @@ package tk.milkthedev.consolemanager.manager.command;
 import tk.milkthedev.consolemanager.api.Manager;
 import tk.milkthedev.consolemanager.event.impl.ConsoleInputEvent;
 
-import java.io.Console;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 

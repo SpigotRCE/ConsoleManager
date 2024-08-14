@@ -10,6 +10,7 @@ public class EventManager {
     private final ArrayList<Listener> listeners;
     private final ArrayList<EventHandler> handlers;
     private final ArrayList<Method> handlerMethods;
+
     public EventManager() {
         this.events = new ArrayList<>();
         this.listeners = new ArrayList<>();
@@ -26,9 +27,9 @@ public class EventManager {
     }
 
     public void registerListener(Listener listener) {
-        for(Method method : listener.getClass().getMethods()) {
+        for (Method method : listener.getClass().getMethods()) {
             EventHandler handler = method.getAnnotation(EventHandler.class);
-            if(handler != null) {
+            if (handler != null) {
                 handlers.add(handler);
                 handlerMethods.add(method);
                 listeners.add(listener);

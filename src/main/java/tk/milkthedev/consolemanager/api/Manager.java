@@ -1,12 +1,8 @@
 package tk.milkthedev.consolemanager.api;
 
 import tk.milkthedev.consolemanager.event.EventManager;
-import tk.milkthedev.consolemanager.event.listener.Listener;
 import tk.milkthedev.consolemanager.handler.ConsoleHandler;
 import tk.milkthedev.consolemanager.manager.command.CommandManager;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Manager {
     private final CommandManager commandManager;
