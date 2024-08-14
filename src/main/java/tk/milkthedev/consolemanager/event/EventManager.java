@@ -4,60 +4,85 @@ import tk.milkthedev.consolemanager.event.listener.Listener;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EventManager {
-    private final ArrayList<Event> events;
-    private final ArrayList<Listener> listeners;
-    private final ArrayList<EventHandler> handlers;
-    private final ArrayList<Method> handlerMethods;
+    private final Map<String, ArrayList<EventHandlerEntry>> eventHandlers;
 
     public EventManager() {
-        this.events = new ArrayList<>();
-        this.listeners = new ArrayList<>();
-        this.handlers = new ArrayList<>();
-        this.handlerMethods = new ArrayList<>();
+        this.eventHandlers = new HashMap<>();
     }
 
     public void registerEvent(Event event) {
-        events.add(event);
+        // Optionally: Ensure events are managed in some way if needed.
+        System.out.println("Event registered: " + event.getEventName());
     }
 
     public void unregisterEvent(Event event) {
-        events.remove(event);
+        // Optionally: Remove event from management if needed.
+        System.out.println("Event unregistered: " + event.getEventName());
     }
 
     public void registerListener(Listener listener) {
         for (Method method : listener.getClass().getMethods()) {
             EventHandler handler = method.getAnnotation(EventHandler.class);
             if (handler != null) {
-                handlers.add(handler);
-                handlerMethods.add(method);
-                listeners.add(listener);
+                if (!eventHandlers.containsKey(method.getParameterTypes()[0].getSimpleName())) {
+                    eventHandlers.put(method.getParameterTypes()[0].getSimpleName(), new ArrayList<>());
+                }
+                eventHandlers.get(method.getParameterTypes()[0].getSimpleName()).add(new EventHandlerEntry(listener, method, handler));
+                System.out.println("Listener registered: " + listener.getClass().getSimpleName() + " for method: " + method.getName());
             }
         }
     }
 
     public void unregisterListener(Listener listener) {
-        listeners.remove(listener);
+        eventHandlers.forEach((key, entries) -> entries.removeIf(entry -> entry.listener.equals(listener)));
+        System.out.println("Listener unregistered: " + listener.getClass().getSimpleName());
     }
 
     public void fireEvent(Event event) {
-        ArrayList<Event> events1 = new ArrayList<>();
-        ArrayList<EventHandler> handlers1 = new ArrayList<>();
+        ArrayList<EventHandlerEntry> handlers = eventHandlers.get(event.getEventName());
 
-        events.forEach(e -> {
-            if (e.getEventName().equals(event.getEventName())) {
-                events1.add(e);
-                handlers1.add(handlers.get(events.indexOf(e)));
+        if (handlers == null) {
+            return;
+        }
+
+        // Sort handlers by priority (LOWEST first)
+        handlers.sort(Comparator.comparingInt(e -> e.handler.priority().getSlot()));
+
+        for (EventHandlerEntry entry : handlers) {
+            EventHandler handler = entry.handler;
+            Method method = entry.method;
+            Listener listener = entry.listener;
+
+            // Check if the event is cancellable and if the handler should ignore cancelled events
+            if (event instanceof Cancellable) {
+                Cancellable cancellableEvent = (Cancellable) event;
+                if (cancellableEvent.isCancel() && handler.ignoreCancelled()) {
+                    continue; // Skip this handler if the event is cancelled and it should ignore cancelled events
+                }
             }
-        });
 
-        // TODO: Sort on the basis of priority
-        for (Method method : handlerMethods) {
             try {
-                method.invoke(listeners.get(handlerMethods.indexOf(method)), event);
-            } catch (Exception ignored) { // TODO: to only invoke methods which have the same event as argument
+                method.invoke(listener, event);
+            } catch (Exception e) {
+                e.printStackTrace(); // Print stack trace for debugging
             }
+        }
+    }
+
+    private static class EventHandlerEntry {
+        final Listener listener;
+        final Method method;
+        final EventHandler handler;
+
+        EventHandlerEntry(Listener listener, Method method, EventHandler handler) {
+            this.listener = listener;
+            this.method = method;
+            this.handler = handler;
         }
     }
 }

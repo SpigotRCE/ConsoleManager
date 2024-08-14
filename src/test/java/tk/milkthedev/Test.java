@@ -29,6 +29,11 @@ public class Test implements Listener {
         System.out.println("Command preprocess event: " + event.getCommand());
     }
 
+    @EventHandler
+    public void onConsoleInputEvent(tk.milkthedev.consolemanager.event.impl.ConsoleInputEvent event) {
+        System.out.println("Console input event: " + event.getInput());
+    }
+
     public static class TestCommand extends Command {
         public TestCommand() {
             super("test", "Test command");

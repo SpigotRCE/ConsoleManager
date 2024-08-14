@@ -1,7 +1,7 @@
 package tk.milkthedev.consolemanager.manager.command;
 
 import tk.milkthedev.consolemanager.api.Manager;
-import tk.milkthedev.consolemanager.event.impl.ConsoleInputEvent;
+import tk.milkthedev.consolemanager.event.impl.CommandPreprocessEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +30,7 @@ public class CommandManager {
 
         if (command == null) return false;
 
-        ConsoleInputEvent event = new ConsoleInputEvent(input);
+        CommandPreprocessEvent event = new CommandPreprocessEvent(input);
         manager.getEventManager().fireEvent(event);
 
         if (event.isCancel()) return true;
