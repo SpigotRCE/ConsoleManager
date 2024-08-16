@@ -1,8 +1,8 @@
-package tk.milkthedev.consolemanager.handler;
+package io.github.spigotrce.consolemanager.handler;
 
-import tk.milkthedev.consolemanager.api.Manager;
-import tk.milkthedev.consolemanager.event.impl.ConsoleInputEvent;
-import tk.milkthedev.consolemanager.manager.command.CommandManager;
+import io.github.spigotrce.consolemanager.api.Manager;
+import io.github.spigotrce.consolemanager.event.impl.ConsoleInputEvent;
+import io.github.spigotrce.consolemanager.manager.command.CommandManager;
 
 import java.util.Objects;
 import java.util.Scanner;

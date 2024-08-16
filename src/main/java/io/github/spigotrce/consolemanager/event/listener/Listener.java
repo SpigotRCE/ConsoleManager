@@ -1,4 +1,4 @@
-package tk.milkthedev.consolemanager.event.listener;
+package io.github.spigotrce.consolemanager.event.listener;
 
 /**
  * Simple interface for tagging all EventListeners

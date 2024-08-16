@@ -1,7 +1,7 @@
-package tk.milkthedev.consolemanager.event.impl;
+package io.github.spigotrce.consolemanager.event.impl;
 
-import tk.milkthedev.consolemanager.event.Cancellable;
-import tk.milkthedev.consolemanager.event.Event;
+import io.github.spigotrce.consolemanager.event.Event;
+import io.github.spigotrce.consolemanager.event.Cancellable;
 
 /**
  * An event class that gets fired when an input is made on the console

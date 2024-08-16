@@ -1,4 +1,4 @@
-package tk.milkthedev.consolemanager.event;
+package io.github.spigotrce.consolemanager.event;
 
 /**
  * Represents an event's priority in execution

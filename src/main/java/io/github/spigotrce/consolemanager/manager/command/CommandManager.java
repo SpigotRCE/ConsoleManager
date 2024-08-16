@@ -1,7 +1,7 @@
-package tk.milkthedev.consolemanager.manager.command;
+package io.github.spigotrce.consolemanager.manager.command;
 
-import tk.milkthedev.consolemanager.api.Manager;
-import tk.milkthedev.consolemanager.event.impl.CommandPreprocessEvent;
+import io.github.spigotrce.consolemanager.api.Manager;
+import io.github.spigotrce.consolemanager.event.impl.CommandPreprocessEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package tk.milkthedev.consolemanager.event;
+package io.github.spigotrce.consolemanager.event;
 
 public abstract class Event {
     private String name;

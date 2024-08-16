@@ -1,4 +1,4 @@
-package tk.milkthedev.consolemanager.manager.command;
+package io.github.spigotrce.consolemanager.manager.command;
 
 /**
  * Represents a Command

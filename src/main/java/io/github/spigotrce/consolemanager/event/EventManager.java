@@ -1,6 +1,6 @@
-package tk.milkthedev.consolemanager.event;
+package io.github.spigotrce.consolemanager.event;
 
-import tk.milkthedev.consolemanager.event.listener.Listener;
+import io.github.spigotrce.consolemanager.event.listener.Listener;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
