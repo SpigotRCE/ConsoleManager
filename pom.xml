@@ -8,7 +8,16 @@
     <packaging>jar</packaging>
 
     <name>ConsoleManager</name>
-    <url>http://maven.apache.org</url>
+    <description>A console manager use for managing inputs from the use over console, a builtin command manager and an easy-to-use event system.</description>
+    <url>https://github.com/SpigotRCE/ConsoleManager</url>
+
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
